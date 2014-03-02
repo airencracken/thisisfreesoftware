@@ -1,0 +1,9 @@
+<$PLAN9/src/mkhdr
+
+TARG=thisisfreesoftware
+OFILES=\
+	processor.$O\
+
+HFILES=processor.h
+
+<$PLAN9/src/mkone

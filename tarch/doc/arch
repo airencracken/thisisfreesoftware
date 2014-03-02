@@ -1,0 +1,50 @@
+The theoretical architecture is a simple processor core. It has the following
+specifications:
+
+- 128 64-bit general purpose integer registers (cannot be modified)
+   - Upper 23 registers are used for various things such as false, true, 
+- Total of 23 instructions
+  - All instructions are predicated
+  - No immediate mode instructions all instructions (with the exception of two)
+    operate using registers.
+  - Instructions are 64-bits in length 
+  - Little endian (no attempt made to work on big endian systems)
+- Von-neuman architecture (this will probably change to harvard in the future)
+- No support for floating point instructions at this point (will most likely
+  be added in the future)
+
+Instruction Reference
+
+Foreward:
+   There are only 23 instructions which was a conscious choice on my part. That
+   choice is a side effect of my exposure to the MSP430 architecture. Of the 23
+   instructions, there are only two that operate on immediate values. Every
+   other instruction uses registers exclusively.
+
+Instruction list
+
+- nop
+- add
+- sub
+- mul
+- div
+- rightshift
+- leftshift
+- binaryor
+- binaryand
+- binarynot
+- eq
+- neq
+- gt
+- lt
+- load
+- store
+- branch
+- set
+- mod
+- call
+- ret
+- platform
+- terminate
+
+
