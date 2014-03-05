@@ -1,7 +1,7 @@
-defmodule Hello do
-  def world do
-    IO.puts "Hello World"
+defmodule FuckYou do
+  def mendez do
+    IO.puts "Fuck you Mendez."
   end
 end
 
-Hello.world
+FuckYou.mendez
