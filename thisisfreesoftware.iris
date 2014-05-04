@@ -1,0 +1,81 @@
+;-----------------------------------------------------------------------------
+;thisisfreesoftware.iris
+;Copyright (c) 2014, Joshua Scoggins 
+;All rights reserved.
+;
+;Redistribution and use in source and binary forms, with or without
+;modification, are permitted provided that the following conditions are met:
+;    * Redistributions of source code must retain the above copyright
+;      notice, this list of conditions and the following disclaimer.
+;    * Redistributions in binary form must reproduce the above copyright
+;      notice, this list of conditions and the following disclaimer in the
+;      documentation and/or other materials provided with the distribution.
+;
+;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+;ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+;WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+;DISCLAIMED. IN NO EVENT SHALL Joshua Scoggins BE LIABLE FOR ANY
+;DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+;(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+;LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+;ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+;(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+;SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;-----------------------------------------------------------------------------
+; to run this
+; irisasm thisisfreesoftware.iris
+; irislink v.obj
+; iris v.img
+set r0 string ; address
+set r1 1 ; constant cell
+set r2 0 ; load cell
+set r3 0 ; predicate cell 
+set r4 0 ; zero cell
+@label continue
+load r2 r0
+set r4 0
+ne r3 r2 r4
+goto.if0 r3 done
+system 2 r2 r2 
+add r0 r0 r1
+goto continue
+@label done
+system 0 r0 r0
+
+@data
+@org 0x0512
+@label string
+@declare 0x46
+@declare 0x75
+@declare 0x63
+@declare 0x6B
+@declare 0x20
+@declare 0x79
+@declare 0x6F
+@declare 0x75
+@declare 0x20
+@declare 0x4D
+@declare 0x65
+@declare 0x6E
+@declare 0x64
+@declare 0x65
+@declare 0x7A
+@declare 0x2E
+@declare 0x0A
+@declare 0x46
+@declare 0x75
+@declare 0x63
+@declare 0x6B
+@declare 0x20
+@declare 0x79
+@declare 0x6F
+@declare 0x75
+@declare 0x20
+@declare 0x41
+@declare 0x69
+@declare 0x72
+@declare 0x65
+@declare 0x6E
+@declare 0x2E
+@declare 0x0A
+@declare 0x00
