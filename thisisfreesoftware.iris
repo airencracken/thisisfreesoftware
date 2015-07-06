@@ -46,106 +46,106 @@ goto main
 ;	return 0;
 ;}
 ;-----------------------------------------------------------------------------
-@label memcmp						; memcmp (
-	pop r128 						; _s1,
-	pop r129 						; _s2,
-	pop r130 						; n) {
-	set r132 0 						; 	i := 0
-	move r133 r128 					; 	s1 := _s1
-	move r134 r129 					; 	s2 := _s2 
-	set r135 0 						; 	predicate := false
-	set r138 0						; 	ret := 0
-@label memcmp_loop					; 	loop {
-	lt r135 r132 r130				; 		predicate := (i < n)
-	set r138 0						; 		ret = 0
-	goto.if0 r134 memcmp_done		; 		if !predicate then break
-	load r136 r133 					; 		t0 := *s1
-	load r137 r134					; 		t1 := *s2 
-	lt r135 r136 r137				; 		predicate := (t0 < t1)
-	set r138 1						; 		ret = 1
-	goto.if1 r135 memcmp_done		; 		if predicate then break
-	gt r135 r136 r137				; 		predicate := (t0 > t1)
-	set r138 2						; 		ret = 2
-	goto.if1 r135 memcmp_done		; 		if predicate then break
-	addi r132 r132 1				; 		i++
-	addi r133 r133 1				; 		s1++
-	addi r134 r134 1				; 		s2++
-	goto memcmp_loop				; 	}
-@label memcmp_done					;
-	pop r131 						; 	// load return address
-	push r138						; 	return ret
-	jump r131						; }
+@label memcmp				; memcmp (
+	pop r128 			; _s1,
+	pop r129 			; _s2,
+	pop r130 			; n) {
+	set r132 0 			; 	i := 0
+	move r133 r128 			; 	s1 := _s1
+	move r134 r129 			; 	s2 := _s2 
+	set r135 0 			; 	predicate := false
+	set r138 0			; 	ret := 0
+@label memcmp_loop			; 	loop {
+	lt r135 r132 r130		; 		predicate := (i < n)
+	set r138 0			; 		ret = 0
+	goto.if0 r134 memcmp_done	; 		if !predicate then break
+	load r136 r133 			; 		t0 := *s1
+	load r137 r134			; 		t1 := *s2 
+	lt r135 r136 r137		; 		predicate := (t0 < t1)
+	set r138 1			; 		ret = 1
+	goto.if1 r135 memcmp_done	; 		if predicate then break
+	gt r135 r136 r137		; 		predicate := (t0 > t1)
+	set r138 2			; 		ret = 2
+	goto.if1 r135 memcmp_done	; 		if predicate then break
+	addi r132 r132 1		; 		i++
+	addi r133 r133 1		; 		s1++
+	addi r134 r134 1		; 		s2++
+	goto memcmp_loop		; 	}
+@label memcmp_done			;
+	pop r131 			; 	// load return address
+	push r138			; 	return ret
+	jump r131			; }
 
 ;-----------------------------------------------------------------------------
 ; void* memcpy(void *s1, const void* s2, size_t n);
 ;-----------------------------------------------------------------------------
-@label memcpy					 ; memcpy (
-	pop r128 					 ; argument _dest
-	pop r129 					 ; argument _source
-	pop r130 					 ; argument n) {
-	set r132 0 					 ; 	i := 0
-	move r133 r128 				 ; 	dest := _dest
-	move r134 r129 				 ; 	source := _source
-	set r135 0 					 ; 	predicate := false
-@label memcpy_loop			 	 ; 	loop {
-	lt r135 r132 r130 			 ; 		predicate := i < n
-	goto.if0 r134 memcpy_success ; 		if !predicate then break 
-	load r136 r134 				 ; 		v := *source
-	store r133 r136 			 ; 		*dest = v
-	addi r134 r134 1			 ; 		source++
-	addi r133 r133 1			 ; 		dest++
-	addi r132 r132 1			 ; 		i++
-	goto memcpy_loop			 ; 	}
-@label memcpy_success			 ; 	
-	pop r131					 ; 	// extract return
-	push r128					 ; 	return _dest
-	jump r131					 ; }
+@label memcpy				; memcpy (
+	pop r128 			; argument _dest
+	pop r129 			; argument _source
+	pop r130 			; argument n) {
+	set r132 0 			; 	i := 0
+	move r133 r128 			; 	dest := _dest
+	move r134 r129 			; 	source := _source
+	set r135 0 			; 	predicate := false
+@label memcpy_loop			; 	loop {
+	lt r135 r132 r130 		; 		predicate := i < n
+	goto.if0 r134 memcpy_success 	; 		if !predicate then break 
+	load r136 r134 			; 		v := *source
+	store r133 r136 		; 		*dest = v
+	addi r134 r134 1		; 		source++
+	addi r133 r133 1		; 		dest++
+	addi r132 r132 1		; 		i++
+	goto memcpy_loop		; 	}
+@label memcpy_success			; 	
+	pop r131			; 	// extract return
+	push r128			; 	return _dest
+	jump r131			; }
 
 
-@label strlen					 ; strlen( 
-	pop r128					 ; argument _str) {
-	set r129 0					 ; 	count := 0
-	move r130 r128				 ; 	str := _str
-	set r131 0					 ; 	predicate := false
-	set r132 0					 ; 	terminator := 0
-	load r133 r130				 ; 	curr := *str
-@label strlen_loop				 ; 	loop {
-	ne r131 r133 r132			 ; 		predicate := (curr != terminator)
-	goto.if0 r131 strlen_done	 ; 		if !predicate then break
-	addi r130 r130 1			 ; 		str++
-	load r133 r130				 ; 		curr = *str
-	addi r129 r129 1			 ; 		count++
-	goto strlen_loop			 ; 	}
-@label strlen_done				 ;
-	pop r134					 ; 	// extract return address
-	push r129					 ; 	return count
-	jump r134					 ; }
+@label strlen				; strlen( 
+	pop r128			; argument _str) {
+	set r129 0			; 	count := 0
+	move r130 r128			; 	str := _str
+	set r131 0			; 	predicate := false
+	set r132 0			; 	terminator := 0
+	load r133 r130			; 	curr := *str
+@label strlen_loop			; 	loop {
+	ne r131 r133 r132		; 		predicate := (curr != terminator)
+	goto.if0 r131 strlen_done	; 		if !predicate then break
+	addi r130 r130 1		; 		str++
+	load r133 r130			; 		curr = *str
+	addi r129 r129 1		; 		count++
+	goto strlen_loop		; 	}
+@label strlen_done			;
+	pop r134			; 	// extract return address
+	push r129			; 	return count
+	jump r134			; }
 
 ;-----------------------------------------------------------------------------
 ; void printstring(char* s1);
 ;-----------------------------------------------------------------------------
-@label printstring				 	; printstring {
-	pop r128					 	; 	argument _s1
-	move r129 r128				 	; 	s1 := _s1
-	set r130 0					 	; 	predicate := false
-	set r131 0					 	; 	terminator := 0
-@label printstring_loop			 	; 	loop {
-	load r132 r129				 	; 		curr := *s1
-	ne r130 r132 r131				; 		predicate = (curr != terminator)
-	goto.if0 r130 printstring_done 	; 		if !predicate then break
-	system 2 r132 r132				; 		print curr // special function
-	addi r129 r129 1				; 		s1++
+@label printstring				; printstring {
+	pop r128				; 	argument _s1
+	move r129 r128				; 	s1 := _s1
+	set r130 0				; 	predicate := false
+	set r131 0				; 	terminator := 0
+@label printstring_loop				; 	loop {
+	load r132 r129				; 	curr := *s1
+	ne r130 r132 r131			; 	predicate = (curr != terminator)
+	goto.if0 r130 printstring_done 		; 	if !predicate then break
+	system 2 r132 r132			; 	print curr // special function
+	addi r129 r129 1			; 	s1++
 	goto printstring_loop			; 	}
 @label printstring_done				;
-	pop r133						; 	return
-	jump r133						; }
+	pop r133				; 	return
+	jump r133				; }
 
 @label main				; main () {
-push.imm main_after		; store the address following the call // hack because we don't have a call stack nor a dedicated link register
-push.imm string			; push the address of the string to print out to the stack // load address of string from data memory
-goto printstring
+    push.imm main_after		; store the address following the call // hack because we don't have a call stack nor a dedicated link register
+    push.imm string			; push the address of the string to print out to the stack // load address of string from data memory
+    goto printstring
 @label main_after
-	system 0 r0 r0
+    system 0 r0 r0
 
 @data
 @org 0x0512
