@@ -27,7 +27,7 @@
 ; irislink v.obj
 ; iris v.img
 ;-----------------------------------------------------------------------------
-goto main
+	goto main		; Jump to the entry point
 ;-----------------------------------------------------------------------------
 ; Standard c-library string functions
 ; For consistency sake, registers 128-223 are for the library
@@ -141,11 +141,11 @@ goto main
 	jump r133				; }
 
 @label main				; main () {
-    push.imm main_after		; store the address following the call // hack because we don't have a call stack nor a dedicated link register
-    push.imm string			; push the address of the string to print out to the stack // load address of string from data memory
-    goto printstring
+	push.imm main_after		; store the address following the call // hack because we don't have a call stack nor a dedicated link register
+	push.imm string			; push the address of the string to print out to the stack // load address of string from data memory
+	goto printstring
 @label main_after
-    system 0 r0 r0
+	system 0 r0 r0
 
 @data
 @org 0x0512
