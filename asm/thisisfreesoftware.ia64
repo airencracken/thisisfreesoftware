@@ -1,0 +1,35 @@
+	.pred.safe_across_calls p1-p5,p16-p63
+	.section	.rodata
+	.align 8
+.LC0:
+	stringz	"Fuck you Mendez."
+	.text
+	.align 16
+	.global main#
+	.type	main#, @function
+	.proc main#
+main:
+	.prologue 14, 32
+	.save ar.pfs, r33
+	alloc r33 = ar.pfs, 0, 4, 1, 0
+	.vframe r34
+	mov r34 = r12
+	.save rp, r32
+	mov r32 = b0
+	mov r35 = r1
+	.body
+	addl r36 = @ltoffx(.LC0), r1
+	;;
+	ld8.mov r36 = [r36], .LC0
+	br.call.sptk.many b0 = puts#
+	mov r1 = r35
+	mov r14 = r0
+	;;
+	mov r8 = r14
+	mov ar.pfs = r33
+	mov b0 = r32
+	.restore sp
+	mov r12 = r34
+	br.ret.sptk.many b0
+	;;
+	.endp main#
