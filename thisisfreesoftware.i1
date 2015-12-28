@@ -1,0 +1,66 @@
+;------------------------------------------------------------------------------
+; Let's do this in iris1 instead of iris
+; go get github.com/DrItanium/cores
+; go install github.com/DrItanium/cores/cmd/rlasm
+; go install github.com/DrItanium/cores/cmd/rlsim
+; rlasm -target=iris1 -input=thisisfreesoftware.i1 | rlsim -target=iris1
+;------------------------------------------------------------------------------
+.code
+.org #x0000
+; maximize readability
+.alias false = r0
+.alias zero = r0
+.alias one = r1
+.alias predicate = r4
+.alias address = r9
+.alias char = r10
+start:
+	set ?address = string          ; the base address
+	move ?char = ?zero             ; save the char in this register
+continue:
+	load ?char = ?address, data    ; load a character to print from the data segment
+	eq ?predicate = ?char, ?zero   ; see if the character is zero
+	branch done if ?predicate      ; we're done if the predicate is true
+	system #2, ?char, ?char        ; print the character out
+	add ?address = ?address, ?one  ; increment the address
+	branch continue                ; keep iterating until we hit zero
+done:
+	system #0, ?address, ?address  ; terminate
+.data
+.org #x512
+; Ahh, the famous statement itself
+string:
+	.word #x46
+	.word #x75
+	.word #x63
+	.word #x6B
+	.word #x20
+	.word #x79
+	.word #x6F
+	.word #x75
+	.word #x20
+	.word #x4D
+	.word #x65
+	.word #x6E
+	.word #x64
+	.word #x65
+	.word #x7A
+	.word #x2E
+	.word #x0A
+	.word #x46
+	.word #x75
+	.word #x63
+	.word #x6B
+	.word #x20
+	.word #x79
+	.word #x6F
+	.word #x75
+	.word #x20
+	.word #x41
+	.word #x69
+	.word #x72
+	.word #x65
+	.word #x6E
+	.word #x2E
+	.word #x0A
+	.word #x00
