@@ -1,5 +1,5 @@
 <?php
 
-echo("Fuck you Mendez.\n");
+  echo("Fuck you Mendez.\n");
 
 ?>
