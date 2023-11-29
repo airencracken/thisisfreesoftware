@@ -1,0 +1,5 @@
+#include "NXCDefs.h"
+
+task main() {
+    TextOut(0, LCD_LINE1, "Fuck you Mendez.");
+}
