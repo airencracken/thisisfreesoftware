@@ -1,0 +1,4 @@
+#!/usr/bin/env gbs3
+PUBLIC SUB Main()
+   PRINT  "Fuck you Mendez."
+END

@@ -1,0 +1,4 @@
+#!/usr/bin/env wish
+
+button .thisisfreesoftware -text "Fuck you Mendez." -command { exit }
+pack .thisisfreesoftware
