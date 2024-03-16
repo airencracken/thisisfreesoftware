@@ -1,0 +1,2 @@
+thisIsFreeSoftware : '{IO, Exception} ()
+thisIsFreeSoftware _ = printLine "Fuck you Mendez."
